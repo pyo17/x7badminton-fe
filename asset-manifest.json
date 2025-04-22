@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/sport-management-fe/static/css/main.95812fcd.css",
+    "main.js": "/sport-management-fe/static/js/main.e7adf79e.js",
+    "static/js/453.77d86399.chunk.js": "/sport-management-fe/static/js/453.77d86399.chunk.js",
+    "index.html": "/sport-management-fe/index.html",
+    "main.95812fcd.css.map": "/sport-management-fe/static/css/main.95812fcd.css.map",
+    "main.e7adf79e.js.map": "/sport-management-fe/static/js/main.e7adf79e.js.map",
+    "453.77d86399.chunk.js.map": "/sport-management-fe/static/js/453.77d86399.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.95812fcd.css",
+    "static/js/main.e7adf79e.js"
+  ]
+}
