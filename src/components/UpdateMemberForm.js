@@ -14,7 +14,7 @@ function UpdateMemberForm() {
     useEffect(() => {
         const fetchMember = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/member/${id}`);
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/member/${id}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -42,7 +42,7 @@ function UpdateMemberForm() {
         };
 
         try {
-            const response = await fetch(`http://localhost:8080/member/update/${id}`, { // Endpoint cập nhật
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/member/update/${id}`, { // Endpoint cập nhật
                 method: 'PUT', // Hoặc 'POST' tùy theo API của bạn
                 headers: {
                     'Content-Type': 'application/json',

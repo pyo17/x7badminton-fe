@@ -14,7 +14,9 @@ function CreateMemberForm() {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/member/add', {
+            console.log(`${process.env.REACT_APP_API_URL}`)
+            console.log("here you are")
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/member/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

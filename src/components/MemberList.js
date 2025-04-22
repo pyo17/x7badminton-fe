@@ -10,7 +10,8 @@ function MemberList() {
     useEffect(() => {
         const fetchMembers = async () => {
             try {
-                const response = await fetch('http://localhost:8080/member'); // Endpoint lấy danh sách member
+                console.log('here you are: ' + `${process.env.REACT_APP_API_URL}`)
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/member`); // Endpoint lấy danh sách member
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
