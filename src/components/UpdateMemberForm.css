@@ -1,54 +1,109 @@
 .update-member-form-container {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
 .update-member-form-container h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    font-size: 2rem;
 }
 
 .update-member-form {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
 }
 
-.form-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.form-input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+.form-group label {
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input {
+    padding: 0.75rem 1rem;
     border: 1px solid #ddd;
-    border-radius: 3px;
-    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
 }
 
-.form-button {
-    background-color: #28a745; /* Màu xanh lá cây cho update */
-    color: white;
-    padding: 10px 15px;
+.form-group input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.form-buttons button {
+    flex: 1;
+    padding: 0.75rem;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
-    margin-bottom: 10px;
+    transition: var(--transition);
 }
 
-.form-button:hover {
-    background-color: #1e7e34;
+.update-button {
+    background-color: var(--success-color);
+    color: white;
 }
 
-.form-button:last-child {
-    background-color: #dc3545; /* Màu đỏ cho cancel */
+.update-button:hover {
+    background-color: #2ecc71;
+    transform: translateY(-2px);
 }
 
-.form-button:last-child:hover {
-    background-color: #c82333;
+.cancel-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.loading-message {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-color);
+}
+
+.error-message {
+    text-align: center;
+    padding: 1rem;
+    background-color: #fde8e8;
+    border-radius: var(--border-radius);
+    color: #e74c3c;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .update-member-form-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
 }

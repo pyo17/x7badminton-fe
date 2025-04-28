@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './UpdateMemberForm.css'; // Import CSS
+import './UpdateMemberForm.css';
 
 function UpdateMemberForm() {
-    const { id } = useParams(); // Lấy ID từ URL params
+    const { id } = useParams();
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phoneNumber: ''
+    });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -19,9 +21,11 @@ function UpdateMemberForm() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setName(data.name);
-                setEmail(data.email);
-                setPhoneNumber(data.phoneNumber);
+                setFormData({
+                    name: data.name,
+                    email: data.email,
+                    phoneNumber: data.phoneNumber
+                });
                 setLoading(false);
             } catch (error) {
                 setError(error);
@@ -30,86 +34,86 @@ function UpdateMemberForm() {
         };
 
         fetchMember();
-    }, [id]); // Chạy lại effect khi ID thay đổi
+    }, [id]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const memberData = {
-            id: parseInt(id), // Gửi ID để server biết member nào cần cập nhật
-            name: name,
-            email: email,
-            phoneNumber: phoneNumber,
-        };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/member/update/${id}`, { // Endpoint cập nhật
-                method: 'PUT', // Hoặc 'POST' tùy theo API của bạn
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/member/update/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(memberData),
+                body: JSON.stringify(formData),
             });
 
-            if (response.ok) {
-                console.log('Member updated successfully!');
-                navigate('/members'); // Chuyển về trang danh sách sau khi cập nhật
-            } else {
-                console.error('Failed to update member:', response.status);
-                // Hiển thị thông báo lỗi
+            if (!response.ok) {
+                throw new Error('Failed to update member');
             }
+
+            navigate('/');
         } catch (error) {
-            console.error('There was an error updating the member:', error);
-            // Hiển thị thông báo lỗi
+            setError(error);
         }
     };
 
     if (loading) {
-        return <div>Loading member details...</div>;
+        return <div className="loading-message">Loading member details...</div>;
     }
 
     if (error) {
-        return <div>Error loading member details: {error.message}</div>;
+        return <div className="error-message">Error: {error.message}</div>;
     }
 
     return (
         <div className="update-member-form-container">
             <h1>Update Member</h1>
             <form onSubmit={handleSubmit} className="update-member-form">
-                <div>
-                    <label htmlFor="name" className="form-label">Name:</label>
+                <div className="form-group">
+                    <label htmlFor="name">Name</label>
                     <input
                         type="text"
                         id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         required
-                        className="form-input"
                     />
                 </div>
-                <div>
-                    <label htmlFor="email" className="form-label">Email:</label>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
                     <input
                         type="email"
                         id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         required
-                        className="form-input"
                     />
                 </div>
-                <div>
-                    <label htmlFor="phoneNumber" className="form-label">Phone Number:</label>
+                <div className="form-group">
+                    <label htmlFor="phoneNumber">Phone Number</label>
                     <input
                         type="text"
                         id="phoneNumber"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        name="phoneNumber"
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
                         required
-                        className="form-input"
                     />
                 </div>
-                <button type="submit" className="form-button">Update Member</button>
-                <button type="button" onClick={() => navigate('/members')}>Cancel</button>
+                <div className="form-buttons">
+                    <button type="submit" className="update-button">Update Member</button>
+                    <button type="button" className="cancel-button" onClick={() => navigate('/')}>Cancel</button>
+                </div>
             </form>
         </div>
     );

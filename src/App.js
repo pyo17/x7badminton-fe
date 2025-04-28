@@ -1,30 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import CreateMemberForm from './components/CreateMemberForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import MemberList from './components/MemberList';
-import UpdateMemberForm from './components/UpdateMemberForm'; // Import component
+import AddMember from './components/AddMember';
+import UpdateMemberForm from './components/UpdateMemberForm';
+import Background from './components/Background';
 import './App.css';
 
 function App() {
     return (
         <Router>
             <div className="App">
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Create Member</Link>
-                        </li>
-                        <li>
-                            <Link to="/members">Member List</Link>
-                        </li>
-                    </ul>
-                </nav>
-
-                <Routes>
-                    <Route path="/" element={<CreateMemberForm />} />
-                    <Route path="/members" element={<MemberList />} />
-                    <Route path="/members/update/:id" element={<UpdateMemberForm />} /> {/* Route mới */}
-                </Routes>
+                <Background />
+                <Navbar />
+                <div className="container">
+                    <Routes>
+                        <Route path="/" element={<MemberList />} />
+                        <Route path="/add" element={<AddMember />} />
+                        <Route path="/members/update/:id" element={<UpdateMemberForm />} />
+                    </Routes>
+                </div>
             </div>
         </Router>
     );
